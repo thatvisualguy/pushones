@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+		<script>
+			window.OneSignalDeferred = window.OneSignalDeferred || [];
+			OneSignalDeferred.push(async function (OneSignal) {
+				const urlParams = new URLSearchParams(window.location.search);
+				const appId = urlParams.get("appId");
+
+				await OneSignal.init({
+					appId: appId,
+				});
+
+				OneSignal.User.PushSubscription.addEventListener("change", (event) => {
+					if (event.current.optedIn) {
+						const urlParams = new URLSearchParams(window.location.search);
+						const externalID = urlParams.get("externalID");
+
+						if (externalID) {
+							OneSignal.User.addAlias("external_id", externalID);
+
+							document.getElementById("success-display").textContent = "Done! You can now close this page.";
+							document.getElementById("success-display").style.display = "block";
+
+							document.querySelector(".onesignal-customlink-container").style.display = "none";
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="onesignal-customlink-container"></div>
+
+		<div id="success-display" style="display: none; margin-top: 20px; padding: 10px; background: #e8f5e8; border: 1px solid #4caf50; border-radius: 4px"></div>
+	</body>
+</html>
