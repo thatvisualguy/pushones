@@ -9,6 +9,21 @@
                 g.src = "https://cdn.pushalert.co/integrate_155e436e189fe309bb72e6b6787a4089.js";
                 s.parentNode.insertBefore(g, s);
         }(document, "script"));
+
+	function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Set attribute
+    const userEmail = getQueryParam("email");
+    if (userEmail) {
+        _pushalertq = _pushalertq || [];
+        _pushalertq.push(["setAttribute", {
+            key: "userEmail",
+            value: userEmail
+        }]);
+    }
 </script>
 <!-- End PushAlert -->
 	</head>
