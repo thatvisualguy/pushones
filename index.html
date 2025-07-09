@@ -9,10 +9,8 @@
 			window.OneSignalDeferred = window.OneSignalDeferred || [];
 			OneSignalDeferred.push(async function (OneSignal) {
 				const urlParams = new URLSearchParams(window.location.search);
-				const appId = urlParams.get("appId");
-
 				await OneSignal.init({
-					appId: appId,
+					appId: "82250200-ba12-4c66-9cd1-c6e5bf47cce0",
 				});
 
 				OneSignal.User.PushSubscription.addEventListener("change", (event) => {
